@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8">
+<meta name="keywords" content>
+<meta name="description" content>
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/ui-base/1.0.0/ui-base.css" media="all">
+<script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+</head>
+<body>
+<style>
+	h1,h2 {
+		margin-top: 20px;
+	}
+	body {
+		padding: 20px;
+	}
+	p {
+		font-size: 14px;
+		margin-top: 10px;
+	}
+	a {
+		text-decoration: underline;
+	}
+</style>
+<div class="dev md">
+	<h2>业务版本</h2>
+	<p>
+		<a href="openApp.jdMobile://virtual?params={&quot;category&quot;:&quot;jump&quot;,&quot;des&quot;:&quot;jdreactversion&quot;}" target="_blank">JDReact业务版本查看</a>
+	</p>
+	<h2>拍卖“我的”JDReactAuctionMy</h2>
+	<p>
+		<a href="openapp.jdmobile://virtual?params={&quot;category&quot;:&quot;jump&quot;,&quot;des&quot;:&quot;jdreactcommon&quot;,&quot;modulename&quot;:&quot;JDReactAuctionMy&quot;,&quot;appname&quot;:&quot;JDReactAuctionMy&quot;,&quot;ishidden&quot;:true,&quot;param&quot;:{&quot;page&quot;:&quot;&quot;,&quot;filter&quot;:&quot;&quot;}}" target="_blank">“我的”首页</a>
+	</p>
+	<h2>拍卖结算页JDReactAuctionEnsure</h2>
+	<p>
+		<span>拍品id</span>
+		<input type="text" id="paimaiId">
+	</p>
+	<p>
+		<label for="zp">
+			<input id="zp" type="radio" name="source" value="5">珍品
+		</label>
+		<label for="hg">
+			<input id="hg" type="radio" name="source" value="6">海关
+		</label>
+		<label for="sf">
+			<input id="sf" type="radio" name="source" value="7">司法
+		</label>
+		<label for="zc">
+			<input id="zc" type="radio" name="source" value="9">资产
+		</label>
+	</p>
+	<p>
+		<button id="gen">生成链接</button>
+		<br><br>
+		<div id="link"></div>
+	</p>
+	<h2>拍卖单品页JDReactAuctionItem</h2>
+	<p>
+		<span>拍品id</span>
+		<input type="text" id="item_paimaiId">
+	</p>
+	<p>
+		<button id="gen_item">生成链接</button>
+		<br><br>
+		<div id="link_item"></div>
+	</p>
+	<h2>模拟器拍卖单品页JDReactAuctionItem</h2>
+	<p>
+	<a id="item_sim">单品页跳模拟器</a>
+	</p>
+	<h2>模拟器拍卖保证金页JDReactAuctionEnsure</h2>
+	<p>
+		<a id="ensure_sim">保证金页跳模拟器</a>
+	</p>
+	<h2>模拟器拍卖个人中心JDReactAuctionMy</h2>
+	<p>
+		<a id="my_sim">模拟器跳个人中心</a>
+	</p>
+	<h2>模拟器拍卖个人中心JDReactAuctionMy - 沉浸式</h2>
+	<p>
+		<a id="my_sim_c">模拟器跳个人中心</a>
+	</p>
+	<h2>模拟器JDReact示例JDReactAPIDemos</h2>
+	<p>
+		<a id="demo_sim">模拟器跳DEMO</a>
+	</p>
+</div>
+<br>
+<br>
+<script>var tpl = 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactcommon","modulename":"JDReactAuctionEnsure","appname":"JDReactAuctionEnsure","ishidden":true,"param":{"paimaiId":"_XX","publishSource":_YY}}';
+$('#gen').click(function () {
+    var paimaiId = $('#paimaiId').val().trim();
+    var publishSource = $('[name=source]:checked').val().trim();
+    console.log(paimaiId, publishSource);
+    var openapp = tpl.replace('_XX', paimaiId).replace('_YY', publishSource);
+    $('#link').html($('<a>').attr('href', openapp).attr('target', '_blank').html('跳转拍品' + paimaiId));
+});
+var tpl1 = 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactcommon","modulename":"JDReactAuctionItem","appname":"JDReactAuctionItem","ishidden":true,"disableReuse":true,"param":{"paimaiId":"_XX"}}';
+$('#gen_item').click(function () {
+    var paimaiId = $('#item_paimaiId').val().trim();
+    console.log(paimaiId);
+    var openapp = tpl1.replace('_XX', paimaiId);
+    $('#link_item').html($('<a>').attr('href', openapp).attr('target', '_blank').html('跳转拍品' + paimaiId));
+});
+$('#item_sim').attr('href', 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactdebug","url":"http://localhost:8081/jsbundles/JDReactAuctionItem.bundle?platform=ios&dev=true","mode":"0","params":{"index":1}}').attr('target', '_blank');
+$('#ensure_sim').attr('href', 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactdebug","url":"http://localhost:8081/jsbundles/JDReactAuctionEnsure.bundle?platform=ios&dev=true","mode":"0","params":{"index":1}}').attr('target', '_blank');
+$('#my_sim').attr('href', 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactdebug","url":"http://localhost:8081/jsbundles/JDReactAuctionMy.bundle?platform=ios&dev=true","mode":"0","params":{"index":1}}').attr('target', '_blank');
+$('#my_sim_c').attr('href', 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactdebug","url":"http://localhost:8081/jsbundles/JDReactAuctionMy.bundle?platform=ios&dev=true", "ishidden": "true", "transparentenable": "true", "mode":"0","params":{"index":1}}').attr('target', '_blank');
+$('#demo_sim').attr('href', 'openapp.jdmobile://virtual?params={"category":"jump","des":"jdreactdebug","url":"http://localhost:8081/jsbundles/JDReactAPIDemos.bundle?platform=ios&dev=true","mode":"0","params":{"index":1}}').attr('target', '_blank');</script>
+</body>
+</html>
